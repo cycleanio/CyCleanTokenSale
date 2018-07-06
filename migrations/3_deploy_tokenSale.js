@@ -50,13 +50,15 @@ module.exports = function(deployer, network, accounts) {
       price,
       totalTokens
     ).then(function() {
-      deployer.link(SafeMath, TokenSale);
-      console.log('CCL:' + address);
-      console.log('TOKENSALE:' + TokenSale.address);
-
-      var ccl = CCLToken.at(address);
-      ccl.approve(TokenSale.address, totalTokens);
+      deployer.link(SafeMath, TokenSale).then(function() {
+        console.log('CCL:' + address);
+        console.log('TOKENSALE:' + TokenSale.address);
   
+        var ccl = CCLToken.at(address);
+        ccl.approve(TokenSale.address, totalTokens);
+      }).catch(function(reason) {
+        console.log(reason);
+      });
     }).catch(function(reason) {
       console.log(reason);
     });
