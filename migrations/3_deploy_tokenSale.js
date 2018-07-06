@@ -19,7 +19,7 @@ module.exports = function(deployer, network, accounts) {
       
     if (network == "development") {
       kycSigners = [0xdd5ecefcaa0cb5d75f7b72dc9d2ce446d6d00520, 0x4e315e5de2abbf7b745d9628ee60e4355c0fab86, 0x627306090abaB3A6e1400e9345bC60c78a8BEf57];
-    
+      
     } else if (network == 'ropsten') {
 
     } else if (network == 'eidoo') {
@@ -27,9 +27,9 @@ module.exports = function(deployer, network, accounts) {
     } else if (network == 'mainnet') {
       address = '0x749f35Ff65932E68267dd82F6CD85eeA735d700E';
       wallet = '0xf835bF0285c99102eaedd684b4401272eF36aF65';
-      startTime = moment.utc('2018-06-12 07:00').toDate().getTime() / 1000;
-      endTime = moment.utc('2018-06-30 12:00').toDate().getTime() / 1000;
-  
+      startTime = moment.utc('2018-07-10 00:00').toDate().getTime() / 1000;
+      endTime = moment.utc('2018-08-31 24:00').toDate().getTime() / 1000;
+      
   }
   console.log('network:' + network);
   console.log('kycSigner:' + kycSigners);
@@ -52,13 +52,12 @@ module.exports = function(deployer, network, accounts) {
       deployer.link(SafeMath, TokenSale);
       console.log('CCL:' + CCLToken.address);
       console.log('TOKENSALE:' + TokenSale.address);
+
+      var ccl = CCLToken.at(CCLToken.address);
+      ccl.approve(TokenSale.address, totalTokens);
   
     }).catch(function(reason) {
       console.log(reason);
     });
   });
-  
-  
-  
 };
-

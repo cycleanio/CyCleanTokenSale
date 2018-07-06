@@ -73,7 +73,7 @@ contract TokenSale is ICOEngineInterface, KYCBase {
         emit ReleaseTokensToCalledDetail(wallet, buyer, amount, remainingTokensValue);
         
         wallet.transfer(msg.value);
-        require(this == token.owner());
+        //require(this == token.owner());
         token.transferFrom(wallet, buyer, amount);
         emit ReleaseTokensToCalled(buyer);
         return true;
@@ -94,14 +94,5 @@ contract TokenSale is ICOEngineInterface, KYCBase {
     {
         bool value = super.senderAllowedFor(buyer);
         return value;
-    }
-
-    function acceptOwnership() public {
-        token.acceptOwnership();
-    }
-
-    function transferOwnership(address owner) public {
-        //require(this == msg.sender);
-        token.transferOwnership(owner);
     }
 }

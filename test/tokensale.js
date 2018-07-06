@@ -95,19 +95,8 @@ contract('TokenSale', function (accounts) {
       */
 
       await ccl.approve(ts.address, 10000000000000000000000000);
-      await ccl.transferOwnership(ts.address);
-      await ts.acceptOwnership();
     })
     
-    afterEach(async ()=> {
-      await ts.transferOwnership(accounts[0]);
-      await ccl.acceptOwnership();
-    })
-    it('should be token owner', async function() {
-      const owner = await ccl.owner();
-      expect(owner).to.equal(ts.address);
-    });
-
     
     it('should reject for invalid signer', async () => {
       const d = getKycData(buyer, 1, ts.address, OTHER_PK)
@@ -163,15 +152,11 @@ contract('TokenSale', function (accounts) {
       10000, MAX_AMOUNT)
       const ccl = CCLToken.at(CCLToken.address);;
       await ccl.approve(ts.address, 10000000000000000000000000);
-      await ccl.transferOwnership(ts.address);
-      await ts.acceptOwnership();
 
       const d = getKycData(buyer, 1, ts.address, SIGNER_PK)
       const buy = ts.buyTokensFor(buyer, d.id, d.max, d.v, d.r, d.s, {from: accounts[1], value: 100})
       await expect(buy).to.be.fulfilled
 
-      await ts.transferOwnership(accounts[0]);
-      await ccl.acceptOwnership();
      })
     it('should reject', async () => {
       const buyer = accounts[1]
