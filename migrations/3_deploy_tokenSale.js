@@ -1,6 +1,7 @@
 var SafeMath = artifacts.require("SafeMath");
 var CCLToken = artifacts.require("CCLToken");
-var TokenSale = artifacts.require("TokenSale")
+var TokenSale = artifacts.require("TokenSale");
+
 module.exports = function(deployer, network, accounts) {
   var rate = 10000;
   //if (network == 'development') {
@@ -50,10 +51,10 @@ module.exports = function(deployer, network, accounts) {
       totalTokens
     ).then(function() {
       deployer.link(SafeMath, TokenSale);
-      console.log('CCL:' + CCLToken.address);
+      console.log('CCL:' + address);
       console.log('TOKENSALE:' + TokenSale.address);
 
-      var ccl = CCLToken.at(CCLToken.address);
+      var ccl = CCLToken.at(address);
       ccl.approve(TokenSale.address, totalTokens);
   
     }).catch(function(reason) {
